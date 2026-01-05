@@ -1,0 +1,132 @@
+import { postgresAdapter } from '@payloadcms/db-postgres'
+import sharp from 'sharp'
+import path from 'path'
+import { buildConfig, PayloadRequest } from 'payload'
+import { fileURLToPath } from 'url'
+import { Categories } from './collections/Categories'
+import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { Posts } from './collections/Posts'
+import { Users } from './collections/Users'
+import { Footer } from './globals/Footer/config'
+import { Header } from  './globals/Header/Header'
+import { plugins } from './plugins'
+import { defaultLexical } from '@/fields/defaultLexical'
+import { getServerSideURL } from './utilities/getURL'
+import { Banner } from '../src/blocks/Banner/config'
+import { Code } from '../src/blocks/Code/config'
+import { MediaBlock } from '../src/blocks/MediaBlock/config'
+import { SiteSettings } from './globals/SiteSettings'
+import { Services } from './collections/Services'
+import {
+  BlocksFeature,
+  FixedToolbarFeature,
+  HeadingFeature,
+  InlineToolbarFeature,
+  lexicalEditor,ParagraphFeature,BoldFeature,OrderedListFeature,BlockquoteFeature,IndentFeature,InlineCodeFeature,
+  UnorderedListFeature,
+  UnderlineFeature,
+  ItalicFeature,
+  UploadFeature,
+  HorizontalRuleFeature,
+  AlignFeature,
+  LinkFeature,
+  
+} from '@payloadcms/richtext-lexical'
+import { toolbarAddDropdownGroupWithItems, UnorderedListFeatureClient } from '@payloadcms/richtext-lexical/client'
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
+
+export default buildConfig({
+  
+  admin: {
+    components: {
+      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
+      // Feel free to delete this at any time. Simply remove the line below.
+      beforeLogin: ['@/components/BeforeLogin'],
+      // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
+      // Feel free to delete this at any time. Simply remove the line below.
+     // beforeDashboard: ['@/components/BeforeDashboard'],
+     graphics: {
+      Logo: '@/components/Admin/AdminLogo',
+    },
+
+    },
+    
+    importMap: {
+      baseDir: path.resolve(dirname),
+    },
+    user: Users.slug,
+    livePreview: {
+     
+      url: 'http://localhost:3000', 
+      collections: ['pages','post','services'],
+      breakpoints: [
+        {
+          label: 'Mobile',
+          name: 'mobile',
+          width: 375,
+          height: 667,
+        },
+        {
+          label: 'Tablet',
+          name: 'tablet',
+          width: 768,
+          height: 1024,
+        },
+        {
+          label: 'Desktop',
+          name: 'desktop',
+          width: 1440,
+          height: 900,
+        },
+      ],
+    },
+  },
+  // This config helps us configure global or default features that the other editors can inherit
+ editor: lexicalEditor({
+         features: ({ rootFeatures }) => {
+           return [
+             ...rootFeatures,
+             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+             BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+             FixedToolbarFeature(),
+             InlineToolbarFeature(),
+             ParagraphFeature(),
+             LinkFeature(),
+             
+AlignFeature(),
+             BoldFeature(),OrderedListFeature(),HorizontalRuleFeature(),BlockquoteFeature(),IndentFeature(),InlineCodeFeature(),UnorderedListFeature(),UnderlineFeature(),ItalicFeature(),BlockquoteFeature(),UploadFeature(),
+           ]
+         },
+       }),
+  db: postgresAdapter({
+    pool: {
+      connectionString: process.env.DATABASE_URL || '',
+    },
+  }),
+  collections: [Pages, Posts,Services,Media, Categories, Users],
+  cors: [getServerSideURL()].filter(Boolean),
+  globals: [Header, Footer,SiteSettings],
+  plugins,
+  secret: process.env.PAYLOAD_SECRET,
+  sharp,
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
+  jobs: {
+    access: {
+      run: ({ req }: { req: PayloadRequest }): boolean => {
+        // Allow logged in users to execute this endpoint (default)
+        if (req.user) return true
+
+        // If there is no logged in user, then check
+        // for the Vercel Cron secret to be present as an
+        // Authorization header:
+        const authHeader = req.headers.get('authorization')
+        return authHeader === `Bearer ${process.env.CRON_SECRET}`
+      },
+    },
+    tasks: [],
+  },
+})
