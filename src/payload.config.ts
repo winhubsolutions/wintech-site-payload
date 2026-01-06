@@ -17,6 +17,7 @@ import { Code } from '../src/blocks/Code/config'
 import { MediaBlock } from '../src/blocks/MediaBlock/config'
 import { SiteSettings } from './globals/SiteSettings'
 import { Services } from './collections/Services'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -119,7 +120,17 @@ export default buildConfig({
   collections: [Pages, Posts, Services, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer, SiteSettings],
-  plugins,
+  plugins: [
+    vercelBlobStorage({
+      enabled: true, // Optional, defaults to true
+      // Specify which collections should use Vercel Blob
+      collections: {
+        media: true,
+      },
+      // Token provided by Vercel once Blob storage is added to your Vercel project
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {
