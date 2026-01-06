@@ -48,14 +48,12 @@ export const seed = async ({
     globals.map((global) =>
       payload.updateGlobal({
         slug: global,
-        data: {
-          navItems: [],
-        },
+        data: global === 'header' ? { navItems: [] } : {},
         depth: 0,
         context: {
           disableRevalidate: true,
         },
-      }),
+      } as any),
     ),
   )
 
@@ -241,7 +239,7 @@ export const seed = async ({
           },
         ],
       },
-    }),
+    } as any),
     payload.updateGlobal({
       slug: 'footer',
       data: {
@@ -271,7 +269,7 @@ export const seed = async ({
           },
         ],
       },
-    }),
+    } as any),
   ])
 
   payload.logger.info('Seeded database successfully!')

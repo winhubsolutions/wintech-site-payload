@@ -1,9 +1,10 @@
 import clsx from 'clsx'
 import React from 'react'
 import { Media } from '@/components/Media'
+import type { Media as MediaType } from '@/payload-types'
 
 interface Props {
-  logo?: any
+  logo?: MediaType
   width?: number
   height?: number
   className?: string
@@ -28,8 +29,10 @@ export const Logo = ({
       }}
     >
       <Media
+           /* ✅ PASS ONLY ID OR URL — NEVER THE OBJECT */
         resource={logo}
-        fill                      // ✅ REQUIRED
+
+        fill                      
         priority={priority}
         imgClassName="object-contain"
       />

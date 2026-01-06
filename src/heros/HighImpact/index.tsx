@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import type { Page } from '@/payload-types'
 
@@ -7,7 +7,7 @@ import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 
-export const HighImpactHero: React.FC<Page['hero']> = ({ title,links, media, richText}) => {
+export const HighImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
 
   return (
     <div
@@ -29,9 +29,7 @@ export const HighImpactHero: React.FC<Page['hero']> = ({ title,links, media, ric
         </div>
       </div>
 
-          <div className="">
-            <h1 className="mb-6 text-3xl md:text-5xl lg:text-6xl">{title}</h1>
-          </div>
+          
       <div className="min-h-[65vh] select-none">
         {media && typeof media === 'object' && (
           <Media fill imgClassName="-z-10 object-cover" priority resource={media} />

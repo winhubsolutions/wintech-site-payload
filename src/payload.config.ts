@@ -11,7 +11,6 @@ import { Users } from './collections/Users'
 import { Footer } from './globals/Footer/config'
 import { Header } from  './globals/Header/Header'
 import { plugins } from './plugins'
-import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { Banner } from '../src/blocks/Banner/config'
 import { Code } from '../src/blocks/Code/config'
@@ -33,7 +32,7 @@ import {
   LinkFeature,
   
 } from '@payloadcms/richtext-lexical'
-import { toolbarAddDropdownGroupWithItems, UnorderedListFeatureClient } from '@payloadcms/richtext-lexical/client'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 

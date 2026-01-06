@@ -1,7 +1,5 @@
 import Link from "next/link";
-
 import { ArrowLeft } from "lucide-react";
-
 import { Background } from "@/components/background";
 import { Button } from "@/components/ui/button";
 
@@ -15,8 +13,8 @@ export default function NotFound() {
           </h1>
 
           <p className="text-muted-foreground mb-10 text-xl">
-            Sorry, we couldn't find the page you're looking for. The page might
-            have been removed or the URL might be incorrect.
+            Sorry, we couldn&apos;t find the page you&apos;re looking for. The page
+            might have been removed or the URL might be incorrect.
           </p>
 
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -26,6 +24,7 @@ export default function NotFound() {
                 Back to Home
               </Link>
             </Button>
+
             <Button
               asChild
               variant="outline"

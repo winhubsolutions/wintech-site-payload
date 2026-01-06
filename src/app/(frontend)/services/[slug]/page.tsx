@@ -1,10 +1,8 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { notFound } from 'next/navigation'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import { RenderHero } from '@/heros/RenderHero'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { Hero } from "@/components/blocks/hero";
 
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 type Props = {
@@ -32,11 +30,11 @@ export default async function ServicePage({ params }: Props) {
   if (!service) {
     return <PayloadRedirects url={url} />
   }
- const { hero, layout } = service
+
   return (
     <>
 
- <article className="pt-16 pb-24">
+ <article>
 <PayloadRedirects disableNotFound url={url} />
 
      { <LivePreviewListener />}

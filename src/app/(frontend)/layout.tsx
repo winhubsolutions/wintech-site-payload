@@ -1,18 +1,18 @@
 import type { Metadata } from 'next'
-import { Inter } from "next/font/google";
-import localFont from "next/font/local";
+import { Inter } from "next/font/google"
+import localFont from "next/font/local"
 import React from 'react'
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/globals/Footer/Component'
-import { StyleGlideProvider } from "@/components/styleglide-provider";
+import { StyleGlideProvider } from "@/components/styleglide-provider"
 import { Navbar } from "@/components/blocks/navabr";
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import "../../styles/globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/theme-provider"
 import "@/styles/globals.css";
-import { getPayload } from "payload";
-import configPromise from "@payload-config";
+import { getPayload } from "payload"
+import configPromise from "@payload-config"
 import { getServerSideURL } from '@/utilities/getURL'
 
 
@@ -76,7 +76,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const siteSettings = await payload.findGlobal({
     slug: "site-settings",
   });
-const header = await payload.findGlobal({ slug: "header" });
+const header = await payload.findGlobal({ 
+  slug: "header" 
+
+});
 
 
   return (
