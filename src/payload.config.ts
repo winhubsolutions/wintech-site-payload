@@ -9,7 +9,7 @@ import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './globals/Footer/config'
-import { Header } from  './globals/Header/Header'
+import { Header } from './globals/Header/Header'
 import { plugins } from './plugins'
 import { getServerSideURL } from './utilities/getURL'
 import { Banner } from '../src/blocks/Banner/config'
@@ -22,7 +22,13 @@ import {
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
-  lexicalEditor,ParagraphFeature,BoldFeature,OrderedListFeature,BlockquoteFeature,IndentFeature,InlineCodeFeature,
+  lexicalEditor,
+  ParagraphFeature,
+  BoldFeature,
+  OrderedListFeature,
+  BlockquoteFeature,
+  IndentFeature,
+  InlineCodeFeature,
   UnorderedListFeature,
   UnderlineFeature,
   ItalicFeature,
@@ -30,14 +36,12 @@ import {
   HorizontalRuleFeature,
   AlignFeature,
   LinkFeature,
-  
 } from '@payloadcms/richtext-lexical'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -45,21 +49,19 @@ export default buildConfig({
       beforeLogin: ['@/components/BeforeLogin'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
-     // beforeDashboard: ['@/components/BeforeDashboard'],
-     graphics: {
-      Logo: '@/components/Admin/AdminLogo',
+      beforeDashboard: ['@/components/BeforeDashboard'],
+      graphics: {
+        Logo: '@/components/Admin/AdminLogo',
+      },
     },
 
-    },
-    
     importMap: {
       baseDir: path.resolve(dirname),
     },
     user: Users.slug,
     livePreview: {
-     
-      url: 'http://localhost:3000', 
-      collections: ['pages','post','services'],
+      url: 'http://localhost:3000',
+      collections: ['pages', 'post', 'services'],
       breakpoints: [
         {
           label: 'Mobile',
@@ -83,30 +85,40 @@ export default buildConfig({
     },
   },
   // This config helps us configure global or default features that the other editors can inherit
- editor: lexicalEditor({
-         features: ({ rootFeatures }) => {
-           return [
-             ...rootFeatures,
-             HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-             BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
-             FixedToolbarFeature(),
-             InlineToolbarFeature(),
-             ParagraphFeature(),
-             LinkFeature(),
-             
-AlignFeature(),
-             BoldFeature(),OrderedListFeature(),HorizontalRuleFeature(),BlockquoteFeature(),IndentFeature(),InlineCodeFeature(),UnorderedListFeature(),UnderlineFeature(),ItalicFeature(),BlockquoteFeature(),UploadFeature(),
-           ]
-         },
-       }),
+  editor: lexicalEditor({
+    features: ({ rootFeatures }) => {
+      return [
+        ...rootFeatures,
+        HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+        BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+        FixedToolbarFeature(),
+        InlineToolbarFeature(),
+        ParagraphFeature(),
+        LinkFeature(),
+
+        AlignFeature(),
+        BoldFeature(),
+        OrderedListFeature(),
+        HorizontalRuleFeature(),
+        BlockquoteFeature(),
+        IndentFeature(),
+        InlineCodeFeature(),
+        UnorderedListFeature(),
+        UnderlineFeature(),
+        ItalicFeature(),
+        BlockquoteFeature(),
+        UploadFeature(),
+      ]
+    },
+  }),
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-  collections: [Pages, Posts,Services,Media, Categories, Users],
+  collections: [Pages, Posts, Services, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer,SiteSettings],
+  globals: [Header, Footer, SiteSettings],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,

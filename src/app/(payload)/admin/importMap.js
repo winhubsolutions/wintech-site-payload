@@ -31,6 +31,7 @@ import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from 
 import { FolderTypeField as FolderTypeField_3817bf644402e67bfe6577f60ef982de } from '@payloadcms/ui'
 import { RowLabel as RowLabel_e5f2ea2a3ff3620de63526e885e3b034 } from '@/globals/Footer/RowLabel'
 import { default as default_b328b4a465e4e093b868a53491591fa0 } from '@/components/Admin/AdminLogo'
+import { default as default_1a7510af427896d367a49dbf838d2de6 } from '@/components/BeforeDashboard'
 import { default as default_8a7ab0eb7ab5c511aba12e68480bfe5e } from '@/components/BeforeLogin'
 import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 
@@ -68,6 +69,7 @@ export const importMap = {
   "@payloadcms/ui#FolderTypeField": FolderTypeField_3817bf644402e67bfe6577f60ef982de,
   "@/globals/Footer/RowLabel#RowLabel": RowLabel_e5f2ea2a3ff3620de63526e885e3b034,
   "@/components/Admin/AdminLogo#default": default_b328b4a465e4e093b868a53491591fa0,
+  "@/components/BeforeDashboard#default": default_1a7510af427896d367a49dbf838d2de6,
   "@/components/BeforeLogin#default": default_8a7ab0eb7ab5c511aba12e68480bfe5e,
   "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
 }
