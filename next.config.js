@@ -6,20 +6,26 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : undefined || process.env.__NEXT_PRIVATE_ORIGIN || 'https://wintechsolutions.vercel.app'
 
 /** @type {import('next').NextConfig} */
-/** @type {import('next').NextConfig} */
+
 const nextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: '*.vercel-storage.com',
+        pathname: '/api/media/**',
+      },
+
+      {
+        protocol: 'https',
         hostname: 'wintechsolutions.vercel.app',
-        pathname: '/api/media/file/**',
+        pathname: '/api/media/**',
       },
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '3000',
-        pathname: '/api/media/file/**',
+        pathname: '/api/media/**',
       },
     ],
     qualities: [25, 50, 75, 90, 100], // ✅ ADD THIS

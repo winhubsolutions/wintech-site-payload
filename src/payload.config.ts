@@ -1,6 +1,7 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import sharp from 'sharp'
 import path from 'path'
+import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 import { Categories } from './collections/Categories'
@@ -10,7 +11,6 @@ import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './globals/Footer/config'
 import { Header } from './globals/Header/Header'
-import { plugins } from './plugins'
 import { getServerSideURL } from './utilities/getURL'
 import { Banner } from '../src/blocks/Banner/config'
 import { Code } from '../src/blocks/Code/config'
@@ -128,6 +128,10 @@ export default buildConfig({
       },
       // Token provided by Vercel once Blob storage is added to your Vercel project
       token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+
+    redirectsPlugin({
+      collections: ['pages', 'posts'], // or your collections
     }),
   ],
   secret: process.env.PAYLOAD_SECRET,
