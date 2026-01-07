@@ -1,32 +1,26 @@
-import React from "react";
+import React from 'react'
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
 type BackgroundProps = {
-  children: React.ReactNode;
-  variant?: "top" | "bottom";
-  className?: string;
-  videoSrc?: string; // <-- mp4 path
-};
+  children: React.ReactNode
+  variant?: 'top' | 'bottom'
+  className?: string
+  videoSrc?: string // <-- mp4 path
+}
 
-export const Background = ({
-  children,
-  variant = "top",
-  className,
-   videoSrc,
-}: BackgroundProps) => {
+export const Background = ({ children, variant = 'top', className, videoSrc }: BackgroundProps) => {
   return (
     <div
       className={cn(
-        "relative",
-        variant === "top" &&
-          "from-primary/50 via-background to-background/80  bg-linear-to-b via-20%",
-        variant === "bottom" &&
-          "from-background via-background to-primary/50  bg-linear-to-b",
+        'relative',
+        variant === 'top' &&
+          'from-primary/50 via-background to-background/80  bg-linear-to-b via-20%',
+        variant === 'bottom' && 'from-background via-background to-primary/50  bg-linear-to-b',
         className,
       )}
     >
-       {/* 🎥 Background Video */}
+      {/* 🎥 Background Video */}
       {videoSrc && (
         <video
           className="absolute inset-0 h-full w-full object-cover pointer-events-none"
@@ -43,9 +37,7 @@ export const Background = ({
       <div className="absolute inset-0 bg-black/20" />
 
       {/* 🌟 Content */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
-  );
-};
+  )
+}

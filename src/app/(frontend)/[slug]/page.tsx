@@ -57,15 +57,14 @@ export default async function Page({ params: paramsPromise }: Args) {
   }
 
   const { hero, layout } = page
-
+  const videoSrc =
+    typeof window !== 'undefined' && window.location.hostname !== 'localhost'
+      ? 'https://ekubta8widqodb9a.public.blob.vercel-storage.com/video/glass-animation-5.mp4'
+      : '/api/media/file/glass-animation-6.mp4'
   return (
     <>
       {slug === 'home' ? (
-        <Background
-          variant="top"
-          videoSrc="/api/media/file/glass-animation-6.mp4"
-          className="min-h-[600px]"
-        >
+        <Background variant="top" videoSrc={videoSrc} className="min-h-[600px]">
           <article>
             <Hero />
             <PayloadRedirects disableNotFound url={url} />
