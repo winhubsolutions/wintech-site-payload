@@ -1,6 +1,7 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import sharp from 'sharp'
 import path from 'path'
+import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
@@ -128,6 +129,24 @@ export default buildConfig({
       },
       // Token provided by Vercel once Blob storage is added to your Vercel project
       token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+
+    mcpPlugin({
+      collections: {
+        posts: {
+          enabled: true,
+          description: 'Manage your blog posts across multiple Payload instances.',
+        },
+        pages: {
+          enabled: true,
+          description: 'Manage your pages across multiple Payload instances.',
+        },
+
+        services: {
+          enabled: true,
+          description: 'Manage your services across multiple Payload instances.',
+        },
+      },
     }),
 
     redirectsPlugin({

@@ -102,7 +102,7 @@ export const Navbar = ({ header, siteSettings }: Props) => {
                       {...linkData}
                       appearance="inline"
                       className={cn(
-                        'px-1.5 text-sm font-medium hover:opacity-75',
+                        'relative bg-transparent px-1.5 text-sm font-medium transition-opacity hover:opacity-75',
                         pathname === href && 'text-muted-foreground',
                       )}
                     />
@@ -112,14 +112,12 @@ export const Navbar = ({ header, siteSettings }: Props) => {
 
               return (
                 <NavigationMenuItem key={i}>
-                  <NavigationMenuTrigger className="bg-transparent px-1.5">
-                    <Link href={href} className="px-1.5 text-sm font-medium hover:opacity-75">
-                      {linkData.label}
-                    </Link>
+                  <NavigationMenuTrigger className="data-[state=open]:bg-accent/50 bg-transparent! px-1.5">
+                    <Link href={href}>{linkData.label}</Link>
                   </NavigationMenuTrigger>
 
                   <NavigationMenuContent>
-                    <ul className="w-[300px] space-y-1 p-3">
+                    <ul className="w-[400px] space-y-2 p-4">
                       {item.children?.map((child, j) => {
                         const childLink = child?.link?.link
                         if (!childLink) return null
@@ -128,17 +126,18 @@ export const Navbar = ({ header, siteSettings }: Props) => {
                           <li key={j}>
                             <NavigationMenuLink asChild>
                               <div
+                                className="group hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center gap-4 rounded-md p-3 leading-none no-underline outline-hidden transition-colors select-none"
                                 key={j}
                                 onClick={() => {
                                   setIsMenuOpen(false)
                                   setOpenDropdown(null)
                                 }}
                               >
-                                <CMSLink
-                                  {...childLink}
-                                  appearance="inline"
-                                  className="block py-1 text-sm text-muted-foreground hover:text-foreground"
-                                />
+                                <div className="space-y-1.5 transition-transform duration-300 group-hover:translate-x-1">
+                                  <div className="text-sm leading-none font-medium">
+                                    <CMSLink {...childLink} appearance="inline" />
+                                  </div>
+                                </div>
                               </div>
                             </NavigationMenuLink>
                           </li>
