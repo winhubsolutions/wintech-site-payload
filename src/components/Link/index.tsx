@@ -2,12 +2,20 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
-//import { cn } from "@/lib/utils";
+//import { cn } from '@/lib/utils'
 
 import type { Page, Post, Service } from '@/payload-types'
 
 type CMSLinkType = {
-  appearance?: 'inline' | 'default' | 'link' | 'destructive' | 'outline' | 'secondary' | 'ghost' | null
+  appearance?:
+    | 'inline'
+    | 'default'
+    | 'link'
+    | 'destructive'
+    | 'outline'
+    | 'secondary'
+    | 'ghost'
+    | null
   children?: React.ReactNode
   className?: string
   label?: string | null

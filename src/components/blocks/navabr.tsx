@@ -1,7 +1,7 @@
 'use client'
 
 import type { Header, SiteSetting, Media as PayloadMedia } from '@/payload-types'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, startTransition } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
@@ -127,11 +127,19 @@ export const Navbar = ({ header, siteSettings }: Props) => {
                         return (
                           <li key={j}>
                             <NavigationMenuLink asChild>
-                              <CMSLink
-                                {...childLink}
-                                appearance="inline"
-                                className="block rounded-md px-3 py-2 text-sm hover:bg-accent"
-                              />
+                              <div
+                                key={j}
+                                onClick={() => {
+                                  setIsMenuOpen(false)
+                                  setOpenDropdown(null)
+                                }}
+                              >
+                                <CMSLink
+                                  {...childLink}
+                                  appearance="inline"
+                                  className="block py-1 text-sm text-muted-foreground hover:text-foreground"
+                                />
+                              </div>
                             </NavigationMenuLink>
                           </li>
                         )
@@ -182,7 +190,16 @@ export const Navbar = ({ header, siteSettings }: Props) => {
             return (
               <div key={i} className="py-4 first:pt-0 last:pb-0">
                 {!hasChildren ? (
-                  <CMSLink {...linkData} appearance="inline" className="block py-2" />
+                  <div
+                    onClick={() => {
+                      startTransition(() => {
+                        setIsMenuOpen(false)
+                        setOpenDropdown(null)
+                      })
+                    }}
+                  >
+                    <CMSLink {...linkData} appearance="inline" className="block py-2" />
+                  </div>
                 ) : (
                   <>
                     <button
@@ -203,10 +220,17 @@ export const Navbar = ({ header, siteSettings }: Props) => {
                       className={cn(
                         'overflow-hidden transition-all duration-300',
                         openDropdown === linkData.label
-                          ? 'mt-4 max-h-[1000px] opacity-100'
+                          ? 'mt-4 opacity-100 scale-y-100'
                           : 'max-h-0 opacity-0',
                       )}
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => {
+                        startTransition(() => {
+                          setIsMenuOpen(false)
+                          startTransition(() => {
+                            setOpenDropdown(null)
+                          })
+                        })
+                      }}
                     >
                       <div className="bg-muted/50 space-y-3 rounded-lg p-4">
                         {openDropdown === linkData.label && (
