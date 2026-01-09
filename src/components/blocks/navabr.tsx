@@ -68,10 +68,11 @@ export const Navbar = ({ header, siteSettings }: Props) => {
   return (
     <section
       className={cn(
-        'left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-4xl border backdrop-blur-md transition-all duration-300',
+        'bg-background/70 absolute left-1/2 z-50 w-[min(90%,700px)] -translate-x-1/2 rounded-4xl border backdrop-blur-md transition-all duration-300',
+        'top-2 lg:top-8',
         isSticky
-          ? 'fixed top-3 bg-background/95 backdrop-blur-xl'
-          : 'absolute top-5 lg:top-12 bg-background/70',
+          ? 'fixed top-2 bg-background/95 backdrop-blur-xl'
+          : 'fixed top-2 lg:top-8 bg-background/70',
       )}
     >
       <div className="flex items-center justify-between px-6 py-3">
@@ -196,6 +197,7 @@ export const Navbar = ({ header, siteSettings }: Props) => {
                         setOpenDropdown(null)
                       })
                     }}
+                    className="group hover:bg-accent block rounded-md p-2 transition-colors"
                   >
                     <CMSLink {...linkData} appearance="inline" className="block py-2" />
                   </div>
