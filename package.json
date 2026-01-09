@@ -24,7 +24,7 @@
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
-    "@modelcontextprotocol/sdk": "1.24.0",
+    "@modelcontextprotocol/sdk": "1.25.2",
     "@next/mdx": "^15.5.5",
     "@payloadcms/admin-bar": "3.69.0",
     "@payloadcms/db-postgres": "3.69.0",
@@ -117,7 +117,7 @@
       "unrs-resolver"
     ],
     "overrides": {
-      "@modelcontextprotocol/sdk": "1.24.0"
+      "@modelcontextprotocol/sdk": "1.25.2"
     }
   }
 }
