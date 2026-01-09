@@ -1,6 +1,7 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import sharp from 'sharp'
 import path from 'path'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -16,9 +17,11 @@ import { getServerSideURL } from './utilities/getURL'
 import { Banner } from '../src/blocks/Banner/config'
 import { Code } from '../src/blocks/Code/config'
 import { MediaBlock } from '../src/blocks/MediaBlock/config'
+import { ContentGrid } from './blocks/ContentGrid'
 import { SiteSettings } from './globals/SiteSettings'
 import { Services } from './collections/Services'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -39,6 +42,7 @@ import {
   AlignFeature,
   LinkFeature,
 } from '@payloadcms/richtext-lexical'
+import { FormBlock } from './blocks/Form/Component'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -85,18 +89,18 @@ export default buildConfig({
       ],
     },
   },
+
   // This config helps us configure global or default features that the other editors can inherit
   editor: lexicalEditor({
     features: ({ rootFeatures }) => {
       return [
         ...rootFeatures,
         HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-        BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+        BlocksFeature({ blocks: [Banner, Code, MediaBlock, ContentGrid] }),
         FixedToolbarFeature(),
         InlineToolbarFeature(),
         ParagraphFeature(),
         LinkFeature(),
-
         AlignFeature(),
         BoldFeature(),
         OrderedListFeature(),
@@ -146,11 +150,29 @@ export default buildConfig({
           enabled: true,
           description: 'Manage your services across multiple Payload instances.',
         },
+        media: {
+          enabled: true,
+          description: 'Manage your media assets across multiple Payload instances.',
+        },
+        categories: {
+          enabled: true,
+          description: 'Manage your categories across multiple Payload instances.',
+        },
       },
     }),
 
+    formBuilderPlugin({
+      // see below for a list of available options
+    }),
     redirectsPlugin({
-      collections: ['pages', 'posts'], // or your collections
+      collections: ['pages', 'posts', 'services'], // or your collections
+    }),
+
+    seoPlugin({
+      collections: ['pages'],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `Wintechsolutions.com — ${doc.title}`,
+      generateDescription: ({ doc }) => doc.excerpt,
     }),
   ],
   secret: process.env.PAYLOAD_SECRET,

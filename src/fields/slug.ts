@@ -10,6 +10,7 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) =>
     {
       name: 'slug',
       type: 'text',
+      localized: true,
       admin: {
         position: 'sidebar',
       },

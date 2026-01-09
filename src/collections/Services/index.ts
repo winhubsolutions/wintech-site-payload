@@ -14,10 +14,7 @@ import { FormBlock } from '../../blocks/Form/config'
 
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
-import {
-  revalidateService,
-  revalidateServiceDelete,
-} from './hooks/revalidateService'
+import { revalidateService, revalidateServiceDelete } from './hooks/revalidateService'
 
 import {
   MetaTitleField,
@@ -74,54 +71,51 @@ export const Services: CollectionConfig<'services'> = {
           label: 'Hero',
           fields: [hero],
         },
-        
- /* ===============================
+
+        /* ===============================
        CARD / LISTING (USED IN SLIDER)
     =============================== */
-    {
-     
-      label: 'Service Card (Listing)',
-      admin: {
-        description: 'Used in homepage slider & service listings',
-      },
-      fields: [
         {
-          name: 'cardImage',
-          label: 'Card Image',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-        },
-        {
-          name: 'excerpt',
-          label: 'Short Description',
-          type: 'textarea',
-          required: true,
-          maxLength: 180,
-        },
-        {
-          name: 'features',
-          label: 'Key Features',
-          type: 'array',
-          minRows: 1,
-          maxRows: 5,
+          label: 'Service Card (Listing)',
+          admin: {
+            description: 'Used in homepage slider & service listings',
+          },
           fields: [
             {
-              name: 'text',
-              label: 'Feature',
-              type: 'text',
-              required: true,
+              name: 'cardImage',
+              label: 'Card Image',
+              type: 'upload',
+              relationTo: 'media',
+            },
+            {
+              name: 'excerpt',
+              label: 'Short Description',
+              type: 'textarea',
+
+              maxLength: 180,
+            },
+            {
+              name: 'features',
+              label: 'Key Features',
+              type: 'array',
+              minRows: 1,
+              maxRows: 5,
+              fields: [
+                {
+                  name: 'text',
+                  label: 'Feature',
+                  type: 'text',
+                },
+              ],
+            },
+            {
+              name: 'showOnHomepage',
+              label: 'Show on Homepage',
+              type: 'checkbox',
+              defaultValue: true,
             },
           ],
         },
-        {
-          name: 'showOnHomepage',
-          label: 'Show on Homepage',
-          type: 'checkbox',
-          defaultValue: true,
-        },
-      ],
-      },
         {
           label: 'Content',
           fields: [
@@ -129,13 +123,7 @@ export const Services: CollectionConfig<'services'> = {
               name: 'layout',
               type: 'blocks',
               required: true,
-              blocks: [
-                Content,
-                MediaBlock,
-                CallToAction,
-                Archive,
-                FormBlock,
-              ],
+              blocks: [Content, MediaBlock, CallToAction, Archive, FormBlock],
               admin: { initCollapsed: true },
             },
           ],

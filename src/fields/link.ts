@@ -3,10 +3,7 @@ import deepMerge from '@/utilities/deepMerge'
 
 export type LinkAppearances = 'default' | 'outline'
 
-export const appearanceOptions: Record<
-  LinkAppearances,
-  { label: string; value: string }
-> = {
+export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
   default: {
     label: 'Default',
     value: 'default',
@@ -23,11 +20,7 @@ type LinkType = (options?: {
   overrides?: Partial<GroupField>
 }) => Field
 
-export const link: LinkType = ({
-  appearances,
-  disableLabel = false,
-  overrides = {},
-} = {}) => {
+export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -69,6 +62,7 @@ export const link: LinkType = ({
     {
       name: 'reference',
       type: 'relationship',
+      localized: true,
       label: 'Document to link to',
       relationTo: ['pages', 'posts', 'services'], // ✅ SERVICES ADDED
       required: true,
@@ -80,6 +74,7 @@ export const link: LinkType = ({
     {
       name: 'url',
       type: 'text',
+      localized: true,
       label: 'Custom URL',
       required: true,
       admin: {
@@ -97,6 +92,7 @@ export const link: LinkType = ({
         {
           name: 'label',
           type: 'text',
+          localized: true,
           label: 'Label',
           required: true,
           admin: { width: '50%' },
@@ -109,8 +105,7 @@ export const link: LinkType = ({
 
   if (appearances !== false) {
     const options =
-      appearances?.map((a) => appearanceOptions[a]) ??
-      Object.values(appearanceOptions)
+      appearances?.map((a) => appearanceOptions[a]) ?? Object.values(appearanceOptions)
 
     linkResult.fields.push({
       name: 'appearance',
