@@ -150,14 +150,6 @@ export default buildConfig({
           enabled: true,
           description: 'Manage your services across multiple Payload instances.',
         },
-        media: {
-          enabled: true,
-          description: 'Manage your media assets across multiple Payload instances.',
-        },
-        categories: {
-          enabled: true,
-          description: 'Manage your categories across multiple Payload instances.',
-        },
       },
     }),
 

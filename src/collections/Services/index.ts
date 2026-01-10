@@ -68,65 +68,22 @@ export const Services: CollectionConfig<'services'> = {
       type: 'tabs',
       tabs: [
         {
-          label: 'Hero',
           fields: [hero],
-        },
-
-        /* ===============================
-       CARD / LISTING (USED IN SLIDER)
-    =============================== */
-        {
-          label: 'Service Card (Listing)',
-          admin: {
-            description: 'Used in homepage slider & service listings',
-          },
-          fields: [
-            {
-              name: 'cardImage',
-              label: 'Card Image',
-              type: 'upload',
-              relationTo: 'media',
-            },
-            {
-              name: 'excerpt',
-              label: 'Short Description',
-              type: 'textarea',
-
-              maxLength: 180,
-            },
-            {
-              name: 'features',
-              label: 'Key Features',
-              type: 'array',
-              minRows: 1,
-              maxRows: 5,
-              fields: [
-                {
-                  name: 'text',
-                  label: 'Feature',
-                  type: 'text',
-                },
-              ],
-            },
-            {
-              name: 'showOnHomepage',
-              label: 'Show on Homepage',
-              type: 'checkbox',
-              defaultValue: true,
-            },
-          ],
+          label: 'Hero',
         },
         {
-          label: 'Content',
           fields: [
             {
               name: 'layout',
               type: 'blocks',
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
               required: true,
-              blocks: [Content, MediaBlock, CallToAction, Archive, FormBlock],
-              admin: { initCollapsed: true },
+              admin: {
+                initCollapsed: true,
+              },
             },
           ],
+          label: 'Content',
         },
         {
           name: 'meta',
@@ -137,11 +94,19 @@ export const Services: CollectionConfig<'services'> = {
               descriptionPath: 'meta.description',
               imagePath: 'meta.image',
             }),
-            MetaTitleField({ hasGenerateFn: true }),
-            MetaImageField({ relationTo: 'media' }),
+            MetaTitleField({
+              hasGenerateFn: true,
+            }),
+            MetaImageField({
+              relationTo: 'media',
+            }),
+
             MetaDescriptionField({}),
             PreviewField({
+              // if the `generateUrl` function is configured
               hasGenerateFn: true,
+
+              // field paths to match the target field for data
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
             }),
@@ -149,13 +114,13 @@ export const Services: CollectionConfig<'services'> = {
         },
       ],
     },
-
     {
       name: 'publishedAt',
       type: 'date',
-      admin: { position: 'sidebar' },
+      admin: {
+        position: 'sidebar',
+      },
     },
-
     slugField(),
   ],
 
